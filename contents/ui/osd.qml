@@ -22,9 +22,8 @@ PlasmaCore.Window {
     width: mainItem.implicitWidth + leftPadding + rightPadding
     height: mainItem.implicitHeight + topPadding + bottomPadding
 
-    // bound rather than set in show(), the name can arrive after the window is shown
     x: screenGeometry.x + screenGeometry.width/2 - width/2
-    y: screenGeometry.y + screenGeometry.height/2 - height/2
+    y: screenGeometry.y + screenGeometry.height/2 - height/2 - height
 
     mainItem: Item {
         function loadConfig() {
@@ -39,7 +38,6 @@ PlasmaCore.Window {
 
         Activities.ActivityInfo {
             id: activityInfo
-            activityId: ":current"
         }
 
         Kirigami.Heading {
@@ -49,7 +47,6 @@ PlasmaCore.Window {
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.NoWrap
             elide: Text.ElideRight
-            text: activityInfo.name
         }
 
         Timer {
@@ -72,7 +69,9 @@ PlasmaCore.Window {
         if (Workspace.isEffectActive("overview")) {
             return;
         }
+        // nameChanged is not emitted when the id changes, so no binding
         activityInfo.activityId = id;
+        textElement.text = activityInfo.name;
         // screen geometry might have changed
         dialog.screenGeometry = Workspace.clientArea(KWin.FullScreenArea, Workspace.activeScreen, Workspace.currentDesktop);
         dialog.visible = true;
