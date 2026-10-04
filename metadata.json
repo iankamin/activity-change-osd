@@ -1,0 +1,11 @@
+{
+    "KPackageStructure": "KWin/Script",
+    "KPlugin": {
+        "Description": "An on screen display indicating the activity change",
+        "Icon": "preferences-system-windows-script-test",
+        "Id": "activitychangeosd",
+        "License": "GPL",
+        "Name": "Activity Change OSD"
+    },
+    "X-Plasma-API": "declarativescript"
+}
